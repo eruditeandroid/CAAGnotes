@@ -1,0 +1,700 @@
+\documentclass{amsart}
+
+\usepackage{notes}
+
+\title{Commutative Algebra and Algebraic Geometry Seminar}
+\date{Fall 2024}
+
+\begin{document}
+
+\begin{abstract}
+	These are notes from the Berkeley Commutative Algebra and Algebraic Geometry Seminar.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+\section{8/27}
+
+I missed today's talks.
+If you have notes and would like to share them, please let me know!
+
+\section{9/3}
+
+I missed today's talks.
+If you have notes and would like to share them, please let me know!
+
+\section{9/17a (Peter Haine) -- Reconstructing Schemes from their \'Etale Topoi}
+
+This is based on joint work with M.\ Carlson and S.\ Wolf centered around a conjecture in Grothendieck's anabelian letter to Faltings.
+
+\subsection{Grothendieck's conjecture}
+
+For a scheme $X$, let $X_\et$ be the \'etale topos of $X$ (i.e.\ $\Sh(\Et_X, \Set)$).
+We would like to understand when $X$ can be recovered from $X_\et$.
+One motivation is to try to understand the following theorem:
+
+\begin{thm}[Neukirch-Uchida 1969, Pop 1994]
+	If $K$ and $L$ are infinite fields of the same characteristic that are finitely generated over their prime fields, then there is a bijection between:
+	\begin{itemize}
+		\item Isomorphisms $K \xrightarrow{\sim} L$
+		\item Equivalences of categories $(\Spec L)_\et \xrightarrow{\sim} (\Spec K)_\et$ up to conjugacy.
+	\end{itemize}
+\end{thm}
+
+Classical statements of this involve the absolute Galois groups, though the statement about \'etale topoi is equivalent.
+It is necessary to assume the fields are infinite: for finite fields, the absolute Galois groups are always $\hat{\ZZ}$.
+
+We'll work over a field $k$ for simplicity.
+There are four main issues that arise when trying to reconstruct a scheme from its \'etale topos:
+\begin{enumerate}
+	\item If $L \supset k$ is an extension of separably closed fields, then $(\Spec L)_\et \simeq (\Spec k)_\et$.
+		Thus we must restrict to finite type schemes.
+	\item If $k$ is an algebraically closed field of characteristic zero and $X$ and $Y$ are smooth proper curves over $k$, then $X_\et \simeq Y_\et$ iff $g(X) = g(Y)$.
+		Thus we must restrict to ``small'' fields $k$.
+		Grothendieck suggests that we fix this by only considering $k$ which are finitely generated over their prime field.
+	\item If $f: X \to Y$ is a universal homeomorphism, then $X \times_Y (-): \Et_Y \to \Et_X$ is an equivalence of categories.
+		(Examples include the normalization of the cuspidal cubic, the absolute Frobenius are both universal, and any nil-immersion.)
+		Thus we must invert universal homeomorphisms.
+	\item A fourth subtle point involving constructibility.
+\end{enumerate}
+
+Let's explain this fourth point.
+We must start with a small amount of topos theory.
+
+\begin{dfn}
+	Given topoi $\Xc$ and $\Yc$, a \emph{geometric morphism} is a functor $f_*: \Xc \to \Yc$ with a right adjoint $f^*: \Yc \to \Xc$ such that $f^*$ preserves geometric morphisms.
+\end{dfn}
+
+Every topos $\Xc$ has an associated topological space $\abs{\Xc}$, and $\abs{-}$ is functorial in geometric morphisms.
+For a scheme $X$, we have $\abs{X_\et} = \abs{X}$.
+Furthermore, if $T$ is a sober topological space, then $\abs{\Sh(T)} \simeq T$.
+
+Knowing this, we can now state our final condition.
+If $f: X \to Y$ is a morphism of schemes locally of finite type over a field, then $f$ must send closed points to closed points.
+This is not true for general geometric morphisms, so we must require it as an extra condition.
+
+\begin{dfn}
+	A geometric morphism $f_*: \Xc \to \Yc$ is \emph{pinned} if $\abs{f_*}: \abs{\Xc} \to \abs{\Yc}$ sends closed points to closed points.
+\end{dfn}
+
+One last thing: in the Neukirch-Uchida theorem, we quotiented out by conjugation.
+We'd like to know that this doesn't really affect anything (i.e.\ that we shouldn't really be doing something ``stacky'').
+Thankfully, this is true:
+
+\begin{prop}
+	Let $k$ be a field, and let $X$ and $Y$ be finite type $k$-schemes.
+	Then the groupoid $\Hom_k^{\mathrm{pin}}(X, Y)$ of pinned geometric morphisms $X_\et \to Y_\et$ over $(\Spec k)_\et$ is equivalent to a set.
+\end{prop}
+
+Now we can state Grothendieck's conjecture:
+
+\begin{conj}[Grothendieck 1983]
+	If $k$ is a finitely generated field, then taking \'etale topoi gives an equivalence between:
+	\begin{itemize}
+		\item $\Sch_k^{ft}[UH\inv]$, the category of finite type $k$-schemes with universal homeomorphisms inverted.
+		\item The category of topoi over $(\Spec k)_\et$ and pinned geometric morphisms.
+	\end{itemize}
+\end{conj}
+
+\begin{thm}[CHW]
+	The conjecture is true if $k$ is infinite.
+\end{thm}
+
+At present, there is not a complete characterization of the image of $(-)_\et$.
+
+\subsection{Inverting universal homeomorphisms}
+
+We ran into a few issues with universal homeomorphisms.
+One was the existence of resolutions of cuspidal cubics.
+Another was the existence of the absolute Frobenius.
+
+\begin{dfn}
+	A ring $A$ is:
+	\begin{enumerate}
+		\item \emph{seminormal} if, whenever $x^2 = y^3$, there exists $a \in A$ such that $x = a^2$ and $y = a^2$.
+		\item \emph{absolutely weakly normal} (or \emph{awn}) if $A$ is seminormal and, for all primes $\ell$ and equations $\ell^\ell x = y^\ell$, there exists $a \in A$ such that $x = a^\ell$ and $y = \ell a$.
+	\end{enumerate}
+\end{dfn}
+
+These properties can be extended to general schemes (where we require that they hold affine-locally).
+
+\begin{thm}[Traverso, Swan]
+	A ring $A$ is seminormal if and only if the inclusion $A \hookrightarrow A[t]$ induces an isomorphism $\Pic A \xrightarrow{\sim} \Pic A[t]$.
+\end{thm}
+
+\begin{thm}
+	\begin{enumerate}
+		\item The inclusion $\Sch^\awn \hookrightarrow \Sch$ admits a right adjoint $(-)^\awn$ (known as \emph{absolute weak normalization}).
+			Moreover, $(-)^\awn$ induces $\Sch[UH\inv] \xrightarrow{\sim} \Sch^\awn$.
+		\item The inclusion $\Sch^\sn \hookrightarrow \Sch$ admits a right adjoint $(-)^\sn$ (known as \emph{seminormalization}).
+			This identifies $\Sch^\sn$ with the category obtained from $\Sch$ by inverting universal homeomorphisms that induce isomorphisms on residue fields.
+		\item A $\QQ$-scheme is awn if and only if it is seminormal.
+		\item A $\FF_p$-scheme is awn if and only if it is perfect.
+	\end{enumerate}
+\end{thm}
+
+In general, seminormalization / absolute weak normalization leaves the land of finite type schemes.
+We must allow for this!
+
+\begin{dfn}
+	A $k$-scheme $X$ is topologically of finite type if $X \to \Spec k$ factors as $X \to X' \to \Spec k$ where $X \to X'$ is a universal homeomorphism and $X' \to \Spec k$ is of finite type.
+\end{dfn}
+
+Grothendieck's conjecture is then equivalent to
+
+\begin{conj}
+	For $X$ and $Y$ topologically of finite type over $k$ with $X$ awn, then
+	\[
+		\Hom_k(X, Y) \simeq \Hom_k^\pin(X_\et, Y_\et).
+	\]
+\end{conj}
+
+How do we prove this?
+Since we can reconstruct the underlying space from the \'etale topos, it suffices to reconstruct the structure sheaf.
+This can be rephrased as constructing the sets of morphisms to $\AA^1$.
+Using the fact that both sides satisfy $h$-descent together with the theory of alterations, we reduce to the case where $X = (X')^\awn$ for $X'$ regular and finite type.
+From here, we can reduce to the case where $Y = \GG_m$.
+This lets us understand things cohomologically!
+We end up asking questions about Picard groups.
+
+\begin{thm}[Guralnik-Jaffe-Roskind-Wiegland]
+	If $k$ is a finitely generated field and $X$ is normal and of finite type over $k$, then $\Pic X$ is finitely generated.
+\end{thm}
+
+This is not true for seminormal schemes in general.
+
+\begin{ex}
+	If $X \subset \PP^2_k$ is a nodal cubic, then $\Pic X \simeq k^\times \oplus \ZZ$.
+\end{ex}
+
+\begin{qn}
+	For $X$ a seminormal scheme of finite type over a finitely generated field of characteristic zero:
+	\begin{enumerate}
+		\item Does $\Pic(X)$ have any nontrivial infinitely divisible elements?
+		\item Same as (1) but for torsion elements.
+		\item Is the Tate module $T(\Pic(X)) = \lim_n \Pic(X)[n]$ zero?
+	\end{enumerate}
+\end{qn}
+
+\section{9/17b (Hannah Larson) -- Chow Rings of Moduli Spaces}
+
+\subsection{Chow groups and Chow rings}
+
+Let $X$ be a smooth variety.
+
+\begin{dfn}
+	The \emph{Chow group} in codimension $i$ of $X$ is the group of $\ZZ$-linear combinations of codimension $i$ irreducible subvarieties of $X$ modulo rational equivalence.
+	Here \emph{rational equivalence} is the equivalence relation generated by $Y_1 \simeq Y_2$ if there exists a family $Y \subset X \times \PP^1$, flat over $\PP^1$, such that $Y_1$ and $Y_2$ are fibers of this family over two points in $\PP^1$.
+	We write $[Y]$ for the equivalence class of the subvariety $Y$: this can be defined even for reducible subvarieties by $[Y \cup Z] = [Y] + [Z]$.
+\end{dfn}
+
+\begin{dfn}
+	The \emph{Chow ring} $A^*(X) = \oplus_i A^i(X)$ comes with an intersection product
+	\[
+		A^i(X) \times A^j(X) \to A^{i+j}(X)
+	\]
+	defined so that, if $X$ and $Y$ meet transversally, then $[Y] \cdot [Z] = [Y \cap Z]$.
+\end{dfn}
+
+\subsection{Line bundles and $A^*(\PP^n)$}
+
+Let $\Lc$ be a line bundle on $X$, and let $\sigma$ be a rational section of $\Lc$.
+
+\begin{dfn}
+	Given $\sigma$, we can define the \emph{divisor of zeroes} $D_0$ and the \emph{divisor of poles} $D_\infty$.
+	The difference $c_1(\Lc) := [D_0] - [D_\infty] \in A^1(X)$ does not depend on the choice of $\sigma$.
+	We call this the \emph{first Chern class} of $\Lc$.
+\end{dfn}
+
+\begin{ex}
+	Let $X = \PP^2$ and $\Lc = \Oc_{\PP^2}(1)$.
+	Taking $\sigma = x_0$, we obtain $D_0 = V(x_0)$ and $D_\infty = \varnothing$, so $c_1(\Lc) = [V(x_0)]$.
+	An alternate choice would be to take $\sigma' = x_1$, which would give $[V(x_1)]$.
+	Well-definedness of $c_1(\Lc)$ forces $[V(x_0)] = [V(x_1)]$.
+
+	We can see this directly by considering the graph of the rational map $X \to \PP^1$, $[x_0 : x_1 : x_2] \mapsto [x_0 : x_1]$.
+	Taking the closure of the graph gives a rational equivalence between $V(x_0)$ and $V(x_1)$.
+	Note that this graph closure is nothing but the blowup of $\PP^1$ at $[1 : 0 : 0]$ -- this observation is more generally.
+\end{ex}
+
+The class $\zeta = c_1(\Oc(1)) \in A^1(\PP^n)$ is the first example of a ``tautological class.''
+In fact, $A^*(\PP^n) \cong \ZZ[\zeta] / (\zeta^{n+1})$, and $\zeta^i$ is the class of a codimension $i$ hyperplane.
+In this case, the ``obvious'' classes generate the Chow ring, and the ``obvious'' relations are all of the relations.
+
+We can obtain B\'ezout's theorem from this result rather easily.
+
+\begin{thm}[B\'ezout]
+	If $C$ and $C'$ are curves in $\PP^2$ of degrees $d$ and $d'$ which meet transversally, then $[C] \cdot [C'] = d d' [\pt]$.
+\end{thm}
+
+\subsection{More properties of Chow rings}
+
+Chow rings can be defined in the non-smooth case.
+
+\begin{thm}[Excision]
+	If $Z \subset X$ is a closed subvariety of codimension $c$ and $U = X \setminus Z$, then there is an exact sequence
+	\[
+		\begin{tikzcd}
+			A^{*-c}(Z) \rar & A^*(X) \rar & A^*(U) \rar & 0.
+		\end{tikzcd}
+	\]
+\end{thm}
+
+We can also pushforward cycles along proper maps.
+If $f: X \to Y$ is proper, then $f_*: A^i(X) \to A^{i + \dim Y - \dim X}(Y)$ is defined by
+\[
+	f_* [Z] = \begin{cases}
+		\deg f|_Z \cdot [f(Z)] & \textrm{$f|_Z$ finite} \\
+		0 & \textrm{otherwise}
+	\end{cases}
+\]
+
+\subsection{Moduli spaces of curves}
+
+How can we extend things to moduli spaces of curves?
+Let $\Mc$ be the moduli space of curves, and let $f: \Cc \to \Mc$ be the universal curve.
+Consider the relative dualizing sheaf $\omega_f$ (so $\omega_f|_p = (T_p C)^\vee$).
+We obtain $c_1(\omega_f) \in A^1(\Cc)$ and $f_* c_1(\omega_f) \in A^0(\Mc_g)$.
+This gives a ``tautological class'' on $\Mc$.
+
+In fact, we can work a bit more generally: let
+\[
+	\kappa_i := f_* c_1(\omega_f)^{i+1} \in A^i(\Mc_g).
+\]
+These are all ``tautological classes.''
+
+\begin{dfn}
+	The subring of $A^*(\Mc_g)$ generated by the $\kappa_i$ is the \emph{tautological ring}.
+	We write $R^*(\Mc_g)$ for this ring.
+\end{dfn}
+
+From now on, we will work rationally, replacing $A^*$ by $A^* \otimes \QQ$.
+
+Important questions:
+\begin{itemize}
+	\item Does $R^*(\Mc_g) = A^*(\Mc_g)$?
+	\item What are the relations among the $\kappa_i$?
+		What is $R^*(\Mc_g)$?
+\end{itemize}
+
+It is known (by work of several authors) that $R^*(\Mc_g) = A^*(\Mc_g)$ for $g \leq 9$.
+However, it is known that $R^*(\Mc_g) \neq A^*(\Mc_g)$ for $g = 12$ or $g \geq 16$.
+A heuristic explanation for this is that the lower genus moduli spaces are ``more rational'' than the higher genus moduli spaces.
+
+The non-tautological class in $\Mc_{12}$ is the bielliptic locus $[B_g]$, i.e.\ the locus of curves which admit a degree 2 map to an elliptic curve.
+One can show that $[\ol{B}_g]$ is not tautological in $A^*(\ol{\Mc}_g)$ for $g \geq 12$.
+The non-tautological classes in $\Mc_{16}$ are constructed as similar ``Hurwitz loci.''
+
+It is not known whether $A^*(\Mc_g)$ is finitely generated in general.
+The speaker expects the answer is ``no'' in high genus.
+
+\section{9/24 (Christian Gaetz) -- Combinatorics of Singularities of Schubert Varieties and Torus Orbit Closures Therein}
+
+Let $G$ be a semisimple connected algebraic group over $\CC$.
+Most of the setup will work for arbitrary type, but the results will be for groups with simply-laced / ADE Dynkin diagram.
+
+\subsection{Definitions and basic theory}
+
+Let $B$ be a Borel subgroup of $G$, i.e.\ a maximal connected closed solvable subgroup of $G$.
+We write $T \subset B$ for the maximal torus and $W = N_G(T) / T$ for the Weyl group.
+For the matrix groups, we may take $B$ to consist of the upper triangular matrices in $G$ and $T$ to consist of the diagonal matrices in $G$.
+
+The Weyl group indexes the \emph{Bruhat decomposition} $G = \sqcup_{w \in W} B w B$.
+In the flag variety $G / B$, the subspaces $B w B / B \cong \CC^{\ell(w)}$ are the \emph{Schubert cells}.
+The closures $X_w = \ol{B w B / B}$ are \emph{Schubert varieties}.
+
+These are classical, hard, and very useful.
+For example, they can be used to understand the cohomology of flag varieties: this is the subject of \emph{Schubert calculus}.
+We can also relate these to problems in Grassmannians by projecting from flag varieties to Grassmannians.
+Schubert calculus in Grassmannians is well-understood (via e.g.\ Littlewood-Richardson rules), but Schubert calculus in Grassmannians is still an active area of research.
+We won't focus on Schubert calculus in this lecture.
+
+Note that $X_w = \sqcup_{v \leq w} B w B / B$, where $\leq$ denotes the Bruhat order.
+
+\begin{ex}
+	For $G = \SL_n$, we have $W \cong S_n$.
+	We can explicitly describe the Bruhat order on $S_3$: writing permutations in one-line notation, we say that $v \leq w$ if the one-line notation for $v$ has more numbers located in the usual order than $w$.
+\end{ex}
+
+\subsection{Kazhdan-Lusztig polynomials}
+
+The \emph{Kazhdan-Lusztig polynomials} are $P_{vw}(q) \in \NN[q]$ which admit the following descriptions:
+\begin{itemize}
+	\item Generating functions of intersection cohomology: $P_{vw}(q) = \sum_i q^i \dim IH^{2i}_v(X_w)$ (where $IH_v$ measures singularities at $v$).
+		In the simply laced case, $P_{vw}(q) = 1$ if $X_w$ is smooth at $v$.
+		In the non-simply laced case, ``smooth'' is replaced by ``rationally smooth.''
+	\item Generating functions of Lie algebra $\Ext$ groups: $\sum_i q^i \Ext^{\ell(w) - \ell(v) - i}_{\gfr}(M_v, L_w)$ (where $M_v$ is a Verma module and $L_w$ is an irrep).
+\end{itemize}
+Proving the equivalence between these started the field of modern geometric representation theory.
+The equivalence is a deep theorem.
+
+We have $\deg P_{vw} \leq \frac{1}{2} (\ell(w) - \ell(v) - 1)$.
+
+The Kazhdan-Lusztig polynomials can be computed via a complicated recurrence relation.
+This recurrence relation contains many signs, and we don't know how to prove the nonnegativity of the polynomials from this recurrence relation.
+
+It's impossible to control the behavior of Kazhdan-Lusztig polynomials in general (cf.\ a theorem of Polo ?? saying that every polynomial with constant term $1$ and $\NN$ coefficients arises as a Kazhdan-Lusztig polynomial).
+As a result, we'll restrict ourselves to special cases.
+
+\subsection{A conjecture of Billey and Postnikov}
+
+\begin{conj}[Billey-Postnikov]
+	Suppose $X_w$ is singular, and write $P_{ew}(q) = 1 + c q^{h(w)} + \dots$.
+	If $G$ is simply laced of rank $r$, then $h(w) \leq r - 2$.\footnote{The original statement is a bit weaker.}
+\end{conj}
+
+This conjecture is somewhat surprising, as in general we only have $\deg P_{ew} \leq O(r^2)$.
+The conjecture forces the first nonzero term that appears to have rank growing linearly in $\rk G$.
+
+\begin{thm}[Bj\"orner-Ekedahl]
+	With the above notation, $h(w)$ is the minimal $i$ such that $h^{2i}(X_w) \neq h^{2(\ell(w) - i)}(X_w)$, i.e.\ the first dimension in which Poincar\'e duality fails.
+\end{thm}
+
+We can understand this using ``patterns.''
+
+\begin{dfn}
+	Say a permutation $w \in S_n$ contains $\sigma \in S_k$ as a \emph{pattern} if there exist $1 \leq i_1 < \dots < i_k < n$ such that $w(i_a) < w(i_b)$ if and only if $\sigma(a) < \sigma(b)$.
+	Otherwise we say $w$ \emph{avoids} $\sigma$.
+\end{dfn}
+
+\begin{ex}
+	The permutation $w = 45312 \in S_5$ contains $\sigma = 3412 \in S_4$ as a pattern (via the subpermutation $4512$).
+\end{ex}
+
+\begin{thm}[Lakshmibai-Sandhya]
+	The Schubert variety $X_w$ is smooth if and only if $w$ avoids $3412$ and $4231$.
+\end{thm}
+
+Avoiding patterns is hard to do in high rank!
+In particular, $X_w$ is almost always singular.
+
+\subsection{The theorem}
+
+\begin{thm}[Gaetz-Gao]
+	Suppose $X_w$ is singular.
+	Then
+	\[
+		h(w) = \begin{cases}
+			1 & \textrm{$w$ contains $4231$}
+			\textrm{minHeight}(w) & \textrm{otherwise}
+		\end{cases}
+	\]
+	where
+	\[
+		\mathrm{minHeight}(w) = \min \{ w(i_1) - w(i_4) \,|\, \textrm{$w$ has $3412$ in positions $i_1, i_2, i_3, i_4$}\}.
+	\]
+\end{thm}
+
+For any $w$ containing $3412$, we have $\mathrm{minHeight}(w) \leq n - 3 = (n - 1) - 2$.
+The Billey-Postnikov conjecture follows from this.
+
+The proof is easier in the case where $w$ contains $4231$.
+Otherwise, $w$ avoids $4231$, and one considers projections $G/B \to G/P_J$.
+The images of $X_w$ give Schubert varieties $X^J_{W^J} \subset G/P_j$.
+The projection maps $\pi: X_w \to X^J_{W^J}$ can be rather nasty, but by studying $w$ carefully, one finds $J$ such that $\pi$ is a fiber bundle with fiber $X_{W_J}$ (i.e.\ a smaller Schubert variety!).
+This allows one to understand Schubert varieties inductively.
+
+\section{10/1a (Daigo Ito) -- A New Proof of the Bondal-Orlov Reconstruction Theorem}
+
+This is based on joint work with Hiroki Matsui.
+
+\subsection{Background}
+
+Let $X$ be a projective variety over $\CC$ (though this should mostly work over any algebraically closed field).
+We can construct a triangulated category of perfect complexes $\Perf\, X$ consisting of bounded complexes of vector bundles (after inverting quasi-isomorphisms).
+
+\begin{qn}
+	How much information about $X$ is contained in $\Perf\, X$?
+	In particular, in which cases can we reconstruct $X$ fully from $\Perf X$?
+\end{qn}
+
+\begin{thm}[Bondal-Orlov, Ballard]
+	Let $X$ be Gorenstein, so the dualizing complex $\omega_X$ is a line bundle.
+	If $\omega_X$ is ample or anti-ample, then:
+	\begin{enumerate}
+		\item We can reconstruct $X$ from the triangulated category $\Perf\, X$.
+		\item If $\Perf X \simeq \Perf Y$ for $Y$ projective and Gorenstein, then $X \cong Y$.\footnote{This is needed to ensure that our reconstruction gives the correct result!
+			Note that we do not assume $Y$ is Fano / anti-Fano.}
+	\end{enumerate}
+\end{thm}
+
+The Fano / anti-Fano assumptions here are rather strong.
+Another method of reconstructing $X$ is as follows.
+
+\subsection{Balmer spectra}
+
+\begin{thm}[Balmer]
+	Let $X$ be a variety (more generally, a qcqs scheme).
+	Then we can reconstruct $X$ from $(\Perf X, \otimes_{\Oc_X}^L)$.
+	
+	More precisely, for any tensor-triangulated (tt) category $(\Tc, \otimes)$, we can construct a ringed space $\Spec_\otimes \Tc$.
+	Taking $(\Tc, \otimes) \cong (\Perf X, \otimes_X)$, we obtain $\Spec_\otimes \Tc \cong X$.
+\end{thm}
+
+It is natural to ask if we can perform Balmer's construction without having the tensor structure when $\omega_X$ is anti-ample.
+
+
+\begin{dfn}[Balmer]
+	Let $(\Tc, \otimes)$ be a tt-category.
+	The \emph{Balmer spectrum} $\Spec_\otimes \Tc$ is defined as follows.
+	As a set, $\Spec_\otimes \Tc$ consists of \emph{prime thick $\otimes$-ideals} $\Pc \subset \Tc$, meaning that:
+	\begin{enumerate}
+		\item (Thick subcategory) $\Pc$ is a full triangulated subcategory of $\Tc$, such that if $X \oplus Y \in \Pc$, then $X \in \Pc$ or $Y \in \Pc$.
+		\item ($\otimes$-ideal) If $X \in \Pc$ and $Y \in \Tc$, then $X \otimes Y \in \Pc$.
+		\item (Prime) $\Pc$ is a proper $\otimes$-ideal such that, if $X \otimes Y \in \Pc$, then $X \in \Pc$ or $Y \in \Pc$.
+	\end{enumerate}
+	We can equip this with a natural ringed space structure.
+\end{dfn}
+
+\begin{ex}
+	If $X$ is a qcqs scheme, then $X \cong \Spec_{\otimes_{\Oc_X}} \Perf X$, where a (not necessarily closed) point $x \in X$ corresponds to the prime
+	\[
+		S_X(x) = \big\{ \Fc \in \Perf\, X \big| \Fc_x \simeq 0 \textrm{ in } \Perf(\Oc_{X,x}) \big\}
+	\]
+\end{ex}
+
+\subsection{Matsui spectra}
+
+\begin{dfn}[Matsui]
+	Let $\Tc$ be a triangulated category.
+	The \emph{Matsui spectrum} $\Spec_\Delta \Tc$ is defined as the set of prime thick subcategories $\Pc$, meaning that:
+	\begin{enumerate}
+		\item $\Pc$ is a thick subcategory of $\Tc$.
+		\item The collection $\{ \Qc \supsetneq \Pc \,|\, \Qc \textrm{ thick}\}$ has a unique smallest element.
+	\end{enumerate}
+\end{dfn}
+
+\begin{ex}
+	If $X$ is a curve and $x \in X$ is a closed point, then $S_X(x) = \langle\kappa(y) \,|\, y \neq x\rangle$ is prime.
+	The smallest thick subcategory containing $S_X(x)$ is obtained by adjoining $\kappa(x)$ to $S_X(x)$.
+\end{ex}
+
+\begin{prop}[Matsui]
+	If $X$ is a noetherian scheme, then $\Spec_{\otimes_{\Oc_X}} \Perf X \subset \Spec_\Delta \Perf X$ as sets.
+\end{prop}
+
+\begin{rmk}
+	It is not known yet whether this extends to arbitrary qcqs schemes.
+\end{rmk}
+
+\begin{thm}[Ito-Matsui]
+	If $X$ is a quasiprojective scheme, then $(\Spec_{\otimes_{\Oc_X}} X)_{\mathrm{red}} \subset \Spec_\Delta \Perf X$ is an open immersion of ringed spaces.
+\end{thm}
+
+\begin{rmk}
+	It is not known yet whether we can attach a natural structure sheaf to $\Spec_\Delta \Perf X$ that ``sees the nilpotents of $X$.''
+\end{rmk}
+
+\subsection{Proof of Bondal-Orlov}
+
+Assume $\omega_X$ is (anti)ample.
+By the theorem on open immersions above, it suffices to specify the correct open subspace of the Matsui spectrum.
+
+Let $\SS(-) = - \otimes \omega_X[\dim X]$ be the Serre functor of $\Perf\, X$.
+This gives an automorphism of $\Perf\, X$.
+
+\begin{lem}
+	The Serre functor can be uniquely determined by the triangulated category structure of $\Perf\, X$.
+\end{lem}
+
+With this lemma, we can define the \emph{Serre-invariant locus} $\Spec^{\mathrm{Ser}} \Perf\, X \subset \Spec_\Delta \Perf\, X$ as 
+\[
+	\Spec^{\mathrm{Ser}} \Perf\, X = \big\{ \Pc \in \Spec_\Delta \Perf\, X \,\big|\, \SS(\Pc) = \Pc \big\}
+\]
+We claim $\Spec_{\otimes_{\Oc_X}} \Perf\, X = \Spec^{\mathrm{Ser}} \Perf\, X$.
+
+\begin{ex}
+	For $X = \PP^1$, we have
+	\[
+		\Spec_\Delta \Perf\, \PP^1 = \Spec_{\otimes_{\Oc_{\PP^1}}} \sqcup \coprod_{i \in \ZZ} \angles{\Oc_{\PP^1}(i)},
+	\]
+	and $\SS$ fixes $\Spec_{\otimes_{\Oc_{\PP^1}}}$ while acting freely on $\coprod_{i \in \ZZ} \angles{\Oc_{\PP^1}(i)}$.
+	Thus the claim holds in this case.
+\end{ex}
+
+In general, it is clear that $\Spec^{\mathrm{Ser}} \Perf\, X \subset \Spec_{\otimes_{\Oc_X}} \Perf\, X$.
+For the reverse inclusion, suppose $\SS(\Pc) = \Pc$.
+Then, for all $n \in \ZZ$, we have $\Pc \otimes \omega_X^{\otimes n} = \Pc$.
+
+\begin{thm}[Orlov]
+	If $\omega_X$ is (anti)ample, then $\langle \omega_X^{\otimes n} \,|\, n \in \ZZ\rangle = \Perf\, X$.
+\end{thm}
+
+It follows that, for all $\Fc \in \Perf\, X$, we have $\Fc \otimes \Pc \subset \Pc$, i.e.\ $\Pc$ is a $\otimes$-ideal.
+
+\begin{thm}[Matsui]
+	A $\otimes$-ideal is a prime $\otimes$-ideal if and only if it is a prime thick subcategory.
+\end{thm}
+
+Thus $\Pc$ is a prime $\otimes_{\Oc_X}$-ideal of $\Perf\, X$, i.e.\ a point of $\Spec_{\otimes_X} \Perf\, X$.
+This concludes the reconstruction of $X$ from $\Perf\, X$.
+
+To see that $\Perf\, X \simeq \Perf\, Y$ implies $X \simeq Y$, note that, because the Serre functor commutes with any equivalence, we must have 
+\[
+	X \cong \Spec^{\mathrm{Ser}} \Perf\, X \cong \Spec^{\mathrm{Ser}} \Perf\, Y.
+\]
+We know that $Y$ embeds as an open subspace of $\Spec^{\mathrm{Ser}} \Perf\, Y$.
+Thus $Y$ is a closed (because proper) and open subspace of $X$.
+But $X$ is connected, so $X \cong Y$.
+
+\subsection{More applications}
+
+Using these methods, we can also recover a theorem of Favero.
+
+\begin{thm}[Favero]
+	Let $X$ and $Y$ be projective varieties.
+	Suppose there is an equivalence $\Phi: \Perf\, X \xrightarrow{\sim} \Perf\, Y$, an (anti)ample line bundle $\Ac$ on $X$, and a line bundle $\Lc$ on $Y$, such that $\Phi(- \otimes \Ac) \simeq \Phi(-) \otimes \Lc$.
+	Then $X \cong Y$.
+\end{thm}
+
+\begin{proof}
+	By the above, we have $X \subset (\Spec_\Delta \Perf\, X)^{- \otimes \Ac} = (\Spec_\Delta \Perf\, Y)^{- \otimes \Lc}$.
+	The same argument as above gives $X \simeq Y$.
+\end{proof}
+
+The above proof is much shorter than Favero's.
+
+\begin{rmk}
+	We do not yet know how to reconstruct the tensor product $\otimes_{\Oc_X}$ directly from the Serre functor.
+\end{rmk}
+
+\section{10/1b (Noah Olander) -- Fully Faithful Functors and Dimension}
+
+We'll write $X$ and $Y$ for smooth projective varieties over some field $k$.
+We write $\Db(X) := \Db(\Coh(X)) \simeq \Perf\, X$, viewed as a $k$-linear triangulated category.
+All functors considered will be exact and $k$-linear.
+
+\subsection{The main theorem}
+
+Our goal is to prove the following:
+
+\begin{thm}[Theorem 1]
+	If there exists a fully faithful functor $F: \Db(X) \to \Db(Y)$, then $\dim X \leq \dim Y$.
+\end{thm}
+
+Let's give some examples of fully faithful functors to explain what we mean:
+\begin{enumerate}
+	\item If $f: Y \to X$ satisfies $Rf_* \Oc_Y = \Oc_X$, then $Lf^*: \Db(Y) \to \Db(X)$ is fully faithful.
+		This applies for $Y$ a projective bundle over $X$, a blowup of $X$ with smooth center, and many other cases.
+		In this case, $f$ must be surjective, proving the theorem in this case.
+	\item (Kuznetsov) There exist fully faithful functors from derived categories of K3 surfaces to derived categories of cubic fourfolds.
+\end{enumerate}
+In these and other examples, the theorem is obvious.
+But the result in general wasn't known before!
+
+We will prove the theorem by proving a weaker version of Orlov's conjecture, stated as follows.
+Let $\Rdim$ denote the Rouquier dimension of a triangulated category, to be defined later.
+
+\begin{conj}[Orlov]
+	For a smooth projective variety $X$, we have $\Rdim \Db(X) = \dim X$.
+\end{conj}
+
+In this generality, the conjecture implies Theorem 1.
+
+\subsection{Rouquier dimension}
+
+Let $\Tc$ be a triangulated category and $S \subset \Tc$.
+Let $\angles{S}_{d+1} \subset \Tc$ consist of objects in $\Tc$ built by taking direct sums, shifts, passing to direct summands, and \emph{taking at most $d$ cones}.
+
+\begin{dfn}
+	The \emph{Rouquier dimension} $\Rdim \Tc$ is the smallest integer $d$ such that there exists a single object $G \in \Tc$ with $\Tc = \angles{G}_{d+1}$.
+\end{dfn}
+
+We will make use of a variant notion.
+
+\begin{dfn}
+	The \emph{countable Rouquier dimension} $\CRdim \Tc$ is the smallest integer $d$ such that there exists a countable subset $S \subset \ob \Tc$ with $\angles{S}_{d+1}$.
+\end{dfn}
+
+\begin{ex}
+	Let $R$ be a Dedekind domain and $\Tc$ the bounded derived category of finitely generated $R$-modules.
+	Then $\Rdim \Tc = 1$, with $\Tc = \angles{R}_2$.
+	To see this, let $K \in \Tc$.
+	Then we may write $K = \oplus_{i \in \ZZ} H^i(K)[-i]$, so WLOG $K$ is a finitely generated $R$-module concentrated in degree zero.
+	Then $K$ admits a resolution
+	\[
+		\SES{P}{R^{\oplus d}}{K}
+	\]
+	where $P$ is projective.
+	As $P$ and $R^{\oplus d}$ both lie in $\angles{K}_1$ (since $P$ can be obtained as a direct summand of a free module), we have $K \in \angles{R}_2$.
+	It follows that $\Rdim \Tc \leq 1$.
+	The converse is left as an exercise.
+
+	Note that if $R$ is countable, then $\CRdim \Tc = 0$, so $\CRdim$ and $\Rdim$ don't agree.
+\end{ex}
+
+\begin{ex}
+	Let $X$ be a smooth projective curve of genus $g \geq 1$.
+	Let $\Lc$ be a line bundle on $X$ of degree $\geq 8g$.
+	Orlov showed $\Db(X) = \angles{\Lc\inv \oplus \Oc \oplus \Lc \oplus \Lc^{\otimes 2}}_2$.
+	Thus $\Rdim X \leq 1$, and equality holds by the following.
+\end{ex}
+
+\begin{lem}[Rouquier]
+	We have $\Rdim \Db(X) \geq \dim X$.
+\end{lem}
+
+The same argument also shows $\CRdim \Db(X) \geq \dim X$ if the ground field $k$ is uncountable.
+
+\begin{lem}
+	Let $F: \Tc \to \Tc'$ be a fully faithful exact functor with an exact right adjoint.
+	Then $\Rdim \Tc \leq \Rdim \Tc'$.
+\end{lem}
+
+\begin{proof}
+	If $R$ is the right adjoint, then $R \circ F = \id$, so $R$ is essentially surjective.
+	If $G$ is an optimal generator for $\Tc$, then $R(G)$ generates $\Rdim \Tc$ in (at most) the same number of steps.
+\end{proof}
+
+This lemma (combined with a result of Bondal and van den Bergh on existence of adjoints) implies that Theorem 1 holds if Orlov's conjecture holds.
+The lemma also holds with $\Rdim$ replaced by $\CRdim$.
+
+\subsection{A weaker version of Orlov's conjecture}
+
+Theorem 1 also follows from:\footnote{Some dexterity is needed to reduce the general case to the case where $k$ is uncountable, but this is not too difficult.}
+
+\begin{thm}[Theorem 2]
+	Let the ground field $k$ be uncountable.
+	Then $\CRdim \Db(X) \leq \dim X$.
+	More precisely, $\Db(X) = \angles{\{\Oc_X(i)\}_{i \in \ZZ}}_{\dim X + 1}$.
+\end{thm}
+
+\begin{thm}[Theorem 3]
+	Given maps $K_0 \to K_1 \to \dots \to K_{\dim X + 1}$ in $\Db(X)$ such that $H^n(K_i) \to H^n(K_{i+1})$ is zero for all $i$ and $n$, the composite map $K_0 \to K_{\dim X + 1}$ is zero.
+\end{thm}
+
+Maps $K_i \to K_{i+1}$ which are nonzero despite all maps $H^n(K_i) \to H^n(K_{i+1})$ being zero are called ``ghosts'' in topology.
+They are relatively easy to find.
+
+\begin{ex}
+	Let $\xi \in H^1(\PP, \Oc(-2))$ be nonzero.
+	Then $\xi$ gives a nonzero element of $\Hom(\Oc, \Oc(-2)[1])$, despite the fact that $\Oc$ and $\Oc(-2)[1]$ are concentrated in different cohomological degrees.
+\end{ex}
+
+\begin{proof}[Proof of Theorem 3]
+	Consider the spectral sequence $E_1^{p,q} = \prod_n \Ext^{2p+q}(H^n(K), H^{n-p}(L))$ which converges to $\Ext^{p+q}(K, L)$.
+	This gives a filtration $F^\bullet$ on $\Hom(K, L)$.
+	We can see that $F^{\dim X + 1} = 0$, $F^1$ consists of ghost maps, and $F^r \circ F^s \subset F^{r+s}$.
+	The result follows from these properties.
+\end{proof}
+
+\begin{proof}[Proof of Theorem 2]
+	Let $K_0 = K \in \Db(X)$.
+	Choose a finite direct sum $\oplus \Oc_X(n_i)^{\oplus d_i}[e_i]$ together with a map $\phi_0: \oplus \Oc_X(n_i)^{\oplus d_i}[e_i] \to K_0$ which is surjective on cohomology.
+	Let $K_1 = \cone \phi_0$, so $K_0 \to K_1$ is a ghost.
+	Repeat this inductively to get $K_0 \to \dots \to K_{\dim X + 1}$.
+	
+	We claim that $\cone(K_0 \to K_j) \in \angles{\{\Oc_X(i)\}_{i \in \ZZ}}_j$.
+	For $j = 1$, this is true by construction.
+	For $j > 1$, we use the octahedral axiom to construct an exact triangle
+	\[
+		\cone(K_0 \to K_{j-1}) \to \cone(K_0 \to K_j) \to \cone(K_{j-1} \to K_j) \to
+	\]
+	and use this to deduce the claim.
+
+	The theorem follows by considering $K_{\dim X + 1} \oplus K_0[1] \simeq \cone(K_0 \xrightarrow{0} K_{\dim X + 1}) \in \angles{\{\Oc_X(i)\}_{i \in \ZZ}}_{\dim X + 1}$.
+\end{proof}
+
+\end{document}
