@@ -3,6 +3,7 @@
 \usepackage{notes}
 
 \title{Commutative Algebra and Algebraic Geometry Seminar}
+\author{Notes by John S.\ Nolan, speakers listed below}
 \date{Fall 2024}
 
 \begin{document}
@@ -377,7 +378,7 @@ In particular, $X_w$ is almost always singular.
 	Then
 	\[
 		h(w) = \begin{cases}
-			1 & \textrm{$w$ contains $4231$}
+			1 & \textrm{$w$ contains $4231$} \\
 			\textrm{minHeight}(w) & \textrm{otherwise}
 		\end{cases}
 	\]
@@ -407,7 +408,7 @@ We can construct a triangulated category of perfect complexes $\Perf\, X$ consis
 
 \begin{qn}
 	How much information about $X$ is contained in $\Perf\, X$?
-	In particular, in which cases can we reconstruct $X$ fully from $\Perf X$?
+	In particular, in which cases can we reconstruct $X$ fully from $\Perf\, X$?
 \end{qn}
 
 \begin{thm}[Bondal-Orlov, Ballard]
@@ -415,7 +416,7 @@ We can construct a triangulated category of perfect complexes $\Perf\, X$ consis
 	If $\omega_X$ is ample or anti-ample, then:
 	\begin{enumerate}
 		\item We can reconstruct $X$ from the triangulated category $\Perf\, X$.
-		\item If $\Perf X \simeq \Perf Y$ for $Y$ projective and Gorenstein, then $X \cong Y$.\footnote{This is needed to ensure that our reconstruction gives the correct result!
+		\item If $\Perf\, X \simeq \Perf\, Y$ for $Y$ projective and Gorenstein, then $X \cong Y$.\footnote{This is needed to ensure that our reconstruction gives the correct result!
 			Note that we do not assume $Y$ is Fano / anti-Fano.}
 	\end{enumerate}
 \end{thm}
@@ -427,10 +428,10 @@ Another method of reconstructing $X$ is as follows.
 
 \begin{thm}[Balmer]
 	Let $X$ be a variety (more generally, a qcqs scheme).
-	Then we can reconstruct $X$ from $(\Perf X, \otimes_{\Oc_X}^L)$.
+	Then we can reconstruct $X$ from $(\Perf\, X, \otimes_{\Oc_X}^L)$.
 	
 	More precisely, for any tensor-triangulated (tt) category $(\Tc, \otimes)$, we can construct a ringed space $\Spec_\otimes \Tc$.
-	Taking $(\Tc, \otimes) \cong (\Perf X, \otimes_X)$, we obtain $\Spec_\otimes \Tc \cong X$.
+	Taking $(\Tc, \otimes) \cong (\Perf\, X, \otimes_X)$, we obtain $\Spec_\otimes \Tc \cong X$.
 \end{thm}
 
 It is natural to ask if we can perform Balmer's construction without having the tensor structure when $\omega_X$ is anti-ample.
@@ -449,7 +450,7 @@ It is natural to ask if we can perform Balmer's construction without having the 
 \end{dfn}
 
 \begin{ex}
-	If $X$ is a qcqs scheme, then $X \cong \Spec_{\otimes_{\Oc_X}} \Perf X$, where a (not necessarily closed) point $x \in X$ corresponds to the prime
+	If $X$ is a qcqs scheme, then $X \cong \Spec_{\otimes_{\Oc_X}} \Perf\, X$, where a (not necessarily closed) point $x \in X$ corresponds to the prime
 	\[
 		S_X(x) = \big\{ \Fc \in \Perf\, X \big| \Fc_x \simeq 0 \textrm{ in } \Perf(\Oc_{X,x}) \big\}
 	\]
@@ -472,7 +473,7 @@ It is natural to ask if we can perform Balmer's construction without having the 
 \end{ex}
 
 \begin{prop}[Matsui]
-	If $X$ is a noetherian scheme, then $\Spec_{\otimes_{\Oc_X}} \Perf X \subset \Spec_\Delta \Perf X$ as sets.
+	If $X$ is a noetherian scheme, then $\Spec_{\otimes_{\Oc_X}} \Perf\, X \subset \Spec_\Delta \Perf\, X$ as sets.
 \end{prop}
 
 \begin{rmk}
@@ -480,11 +481,11 @@ It is natural to ask if we can perform Balmer's construction without having the 
 \end{rmk}
 
 \begin{thm}[Ito-Matsui]
-	If $X$ is a quasiprojective scheme, then $(\Spec_{\otimes_{\Oc_X}} X)_{\mathrm{red}} \subset \Spec_\Delta \Perf X$ is an open immersion of ringed spaces.
+	If $X$ is a quasiprojective scheme, then $(\Spec_{\otimes_{\Oc_X}} X)_{\mathrm{red}} \subset \Spec_\Delta \Perf\, X$ is an open immersion of ringed spaces.
 \end{thm}
 
 \begin{rmk}
-	It is not known yet whether we can attach a natural structure sheaf to $\Spec_\Delta \Perf X$ that ``sees the nilpotents of $X$.''
+	It is not known yet whether we can attach a natural structure sheaf to $\Spec_\Delta \Perf\, X$ that ``sees the nilpotents of $X$.''
 \end{rmk}
 
 \subsection{Proof of Bondal-Orlov}
@@ -697,4 +698,109 @@ They are relatively easy to find.
 	The theorem follows by considering $K_{\dim X + 1} \oplus K_0[1] \simeq \cone(K_0 \xrightarrow{0} K_{\dim X + 1}) \in \angles{\{\Oc_X(i)\}_{i \in \ZZ}}_{\dim X + 1}$.
 \end{proof}
 
+\section{10/8 (Hannah Larson) -- The Chow Rings of Moduli Spaces of Pointed Hyperelliptic Curves}
+
+This is related to the speaker's prior talk in this seminar, but knowledge of that talk is not necessary for this.
+
+\subsection{Refresher on Chow rings}
+
+Let $X$ be a smooth variety.
+The \emph{Chow ring} $A^*(X)$ is the ring of $\ZZ$-linear combinations of irreducible subvarieties $Y \subset X$, modulo rational equivalence.
+Recall that $Y_1$ and $Y_2$ are rationally equivalent (written $Y_1 \sim Y_2$) if there is a subvariety $Z \subset X \times \PP^1$ such that the forgetful map $p: Z \to \PP^1$ is flat and for some $t_1, t_2 \in \PP^1$ we have $p\inv(t_1) = Y_1$ and $p\inv(t_2) = Y_2$.
+The Chow ring is graded by codimension.
+Addition in the Chow ring corresponds to taking unions, and multiplication corresponds to taking (suitable) intersections.
+
+We will need to know a few computational facts about Chow rings:
+\begin{enumerate}
+	\item $A^*(\AA^n) = \ZZ$, concentrated in codimension $0$.
+		For example, the subvariety $V(x^2 + y^2 - 1) \subset \AA^2$ is rationally equivalent to $\varnothing$ via the family $V((tx^2) + (ty)^2- 1) \subset \AA^2 \times \PP^1_t$.
+	\item There is an \emph{excision property}: if $Z \subset X$ is closed of codimension $c$, then there is an exact sequence
+		\[
+			\begin{tikzcd}
+				A^{*-c}(Z) \rar & A^*(X) \rar & A^*(U) \rar & 0
+			\end{tikzcd}
+		\]
+		where $U = X \setminus Z$.
+\end{enumerate}
+
+These can be used to compute $A^*(\PP^n) = \ZZ[\zeta] / (\zeta^{n+1})$, using induction and the fact that
+\[
+	\PP^n = \AA^n \sqcup \PP^{n-1} = \AA^n \sqcup \AA^{n-1} \sqcup \dots \sqcup \pt.
+\]
+To make this calculation work, one does need to know that the class of a point in $A^*(\PP^n)$ is nonzero, which follows from proper pushforward being well-defined.
+We will use similar stratification-based methods today.
+
+\subsection{Moduli of curves}
+
+Let $\Mc_g$ be the (coarse) moduli space of curves.
+One way to stratify this by gonality.
+
+\begin{dfn}
+	The \emph{gonality} of a curve $C$ is the minimal $k$ such that there exists a degree $k$ map $C \to \PP^1$.
+\end{dfn}
+
+For curves of genus $g \neq 0$, the minimum gonality is $2$.
+Curves of gonality $2$ are called \emph{hyperelliptic} and determine a closed subvariety $\Hc_g \subset \Mc_g$.
+Using the Riemann-Hurwitz formula, we see that if $C$ is a hyperelliptic curve of genus $g$, the ramification divisor $R$ of any degree $2$ map $C \to \PP^1$ satisfies $\deg R = 2g + 2$.
+In particular, the coarse moduli space $\Hc_g$ corresponds to the space of collections of $2g + 2$ distinct points on $\PP^1$, all modulo automorphisms of $\PP^1$.\footnote{This is not quite true for the stacks, but we will not concern ourselves with this.}
+This can be written as
+\[
+	(\PP^{2g+2} \setminus \Delta) / \PGL_2
+\]
+where $\Delta$ is the locus where the points collide.
+In particular, we note that the coarse moduli space of $\Hc_g$ is unirational.
+
+We can compute the Chow ring of this space (with rational coefficients) using equivariant intersection theory.
+The answer is
+\[
+	A^*(\Hc_g) \otimes \QQ = \QQ
+\]
+Since we are using rational coefficients, the coarse moduli space gives the same answer as the stacky computation.
+
+\subsection{Introducing marked points}
+
+Let $\Hc_{g,n}$ be the moduli space of smooth hyperelliptic curves with $n$ distinct marked points.
+We have good reason to care about these: the boundary of the compactification $\ol{\Mc}_{g'}$ can be stratified by products of moduli spaces $\Mc_{g,n}$ of curves with marked points, and the $\Hc_{g,n}$ appear in the stratifications of these moduli spaces by gonality.
+
+Let's consider $\Hc_{g,1}$ first.
+For a hyperelliptic curve $C$ with $f: C \to \PP^1$, if $p$ is a marked point on $C$, there is an automorphism of $C$ taking $p$ to the other point $\ol{p} \in f\inv(f(p))$.
+Thus all we really care about is the image $f(p)$, i.e.\ $\Hc_{g,1}$ has coarse moduli space given by the space of collections of $2g+2$ distinct points on $\PP^1$ together with one distinguished point on $\PP^1$.
+As a variety, this is
+\[
+	((\PP^2 \setminus \Delta) \times \PP^1) / \PGL_2.
+\]
+The forgetful map $\Hc_{g,1} \to \Hc_g$ is a $\PP^1$-bundle, and we get
+\[
+	A^*(\Hc_{g,1}) \otimes \QQ = \QQ[\phi] / (\phi^2).
+\]
+
+As $n$ grows, the spaces $\Hc_{g,n}$ become more complicated.
+This can be made precise:
+
+\begin{thm}[Barros-Mullane, Schwarz]
+	For $n \geq 4g + 7$, the space $\Hc_{g,n}$ is of general type.
+\end{thm}
+
+In particular, it is not possible to find a dominant map from a rational variety to $\Hc_{g,n}$ (i.e.\ a ``parametrization'') for $n$ large.
+Nevertheless, $\Hc_{g,n}$ is easier to understand in low degrees:
+
+\begin{thm}[Casnati]
+	For $n \leq 2g + 8$, the space $\Hc_{g,n}$ is rational.
+\end{thm}
+
+\begin{thm}[Canning-Larson]
+	For $n \leq 2g + 6$, we have
+	\[
+		A^*(\Hc_{g,n}) \otimes \QQ = \frac{\QQ[\phi_1, \dots, \phi_n]}{(\phi_1, \dots, \phi_n)^2}
+	\]
+	where the classes $\phi_i$ all lie in codimension $1$.
+	Furthermore, $\Hc_{g,n}$ is rational for $n \leq 3g + 6$.
+\end{thm}
+
+The classes $\psi_i$ here are tautological classes.
+Over $\Hc_{g,n}$, there is a universal hyperelliptic curve $f: \Cc \to \Hc_{g,n}$ with disjoint sections $\sigma_1, \dots, \sigma_n: \Hc_{g,n} \to \Cc$.
+One defines $\psi_i = c_1(\sigma_i^* \omega_f)$.
+This is useful for understanding $A^*(\Mc_{g,n}) \otimes \QQ$: the only contributions to this coming from $\Hc_{g,n}$ will be tautological!
+
+Canning and Larson also have some similar results for higher gonality.
 \end{document}
