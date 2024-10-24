@@ -953,4 +953,152 @@ Consider matrices $S$ and $T_j$, where $S_{ij} = \angles{ij}$ and $(T_j)_{ik} = 
 	In particular, $K_{4,n}^{(2)} \cong K_{5,n}^{(2)}$ is the first secant variety of $\Gr(2, n)$.
 \end{thm}
 
+\section{10/22 (Will Fisher) -- Introduction to Hochschild Homology}
+
+\subsection{Introduction and motivation}
+
+Let $A$ be an associative $k$-algebra (where $k$ is unital and commutative).
+What is the ``universal'' commutative algebra associated to $A$?
+
+We can interpret this question categorically: what are the adjoints to $\CAlg_k \hookrightarrow \Alg_k$?
+One adjoint is given by $A \mapsto A / [A, A]$, but the other doesn't exist.
+Trying to take the center doesn't work, as it's not functorial in general.
+Let's fix this by considering a more general problem.
+
+Given an $A / k$-bimodule (``$A$-over-$k$ bimodule'') $M$, we'd like to find the universal bimodule where the left and right actions agree.
+We recall the definition of $A / k$-bimodules, as this is somewhat more restrictive than the na\"ive notion of bimodule.
+
+\begin{dfn}
+	An $A / k$-bimodule is a $k$-module $M$ with the structure of a left and right $A$-module such that
+	\begin{enumerate}
+		\item $(a \cdot m) \cdot b = a \cdot (m \cdot b)$ for $a, b \in A$ and $m \in M$
+		\item $\lambda \cdot m = m \cdot \lambda$ for $\lambda \in k$ and $m \in M$.
+	\end{enumerate}
+\end{dfn}
+
+There are two obvious options for these ``universal bimodules:''
+\begin{enumerate}
+	\item $Z(M) = \{ m \in M \,|\, am = ma \forall a \in A \}$
+	\item $M / [A, M] = M / \angles{am - ma \,|\, m \in M, a \in A}$
+\end{enumerate}
+
+If $M$ is an $A / k$-bimodule such that $a \cdot m = m \cdot a$ for all $a \in A$, then $[A, A]$ annihilates $M$.
+In fact, this commutativity condition is equivalent to an $A / [A, A]$-left module structure on $M$.
+Thus we have an inclusion $(A / [A, A])\dMod \hookrightarrow A / k\dBimod$.
+One can check that $M \mapsto Z(M)$ and $M \mapsto M / [A, M]$ are the left and right adjoints to this inclusion.
+
+\begin{dfn}
+	\emph{Hochschild homology} $\HHrm_*(A/k, -)$ is the derived functor of 
+	\begin{align*}
+		A / k\dBimod &\to (A / [A, A])\dMod \\
+		M &\mapsto M / [A, M].
+	\end{align*}
+\end{dfn}
+
+If $A$ is a \emph{commutative} algebra, then an $A / k$-bimodule $M$ is an $A \otimes_k A$-module via $(a \otimes b) \cdot m = a \cdot m \cdot b$.
+A similar construction lets us also view $M$ as a right $A \otimes_k A$-module.
+Let $\iota: A\dMod \to (A \otimes_k A)\dMod$ be defined by $(a \otimes b) \cdot m = ab \cdot m$, so we are viewing $M$ as an $A \otimes_k A$-module via the multiplication $m: A \otimes_k A \to A$.
+Geometrically, this corresponds to pushforward along the diagonal $\Delta: \Spec A \to \Spec A \times_k \Spec A$.
+
+\begin{cor}
+	If $A$ is commutative, then $M / [A, M] \cong M \otimes_{A \otimes_k A} A$, where $A$ is an $A \otimes_k A$-module via multiplication.
+\end{cor}
+
+\subsection{The bar complex}
+
+We'll take $A$ to be commutative from now on, but note that we can make most of this work generally.
+For notational simplicity, we'll write $A^e = A \otimes_k A$.
+
+Thinking of $\HHrm_*(A/k, -)$ as the derived functor of $\Delta^*: \QCoh(\Spec A \times_k \Spec A) \to \QCoh(\Spec A)$, we see that
+\[
+	\HHrm_*(A/k, M) \cong \Tor_*^{A^e}(M, A).
+\]
+By the symmetry of $\Tor$, we see that it suffices to take a projective resolution of $A$.
+This can be accomplished as follows.
+
+\begin{dfn}
+	The \emph{bar complex} (or \emph{standard complex}) is the complex of $A^e$-modules
+	\[
+		\begin{tikzcd}
+			\dots \rar["d_2"] & A \otimes_k A \otimes_k A \rar["d_1"] \rar & A \otimes_k A \rar["m"] & A \rar & 0
+		\end{tikzcd}
+	\]
+	where
+	\[
+		d_n(a_0 \otimes \dots a_{n+1}) = \sum_{i=0}^n (-1)^i a_0 \otimes \dots \otimes a_i a_{i+1} \otimes \dots \otimes a_{n+1} + (-1)^{n+1} a_{n+1} a_0 \otimes \dots \otimes a_n.
+	\]
+	Here the left (resp.\ right) factor of $A \otimes_k A$ acts on the leftmost (resp.\ rightmost) factor of $A \otimes_k \dots \otimes_k A$.
+\end{dfn}
+
+\begin{prop}
+	The bar complex is exact.
+	Furthermore, as left $A^e$-modules, we have $A^{\otimes n+2} \xrightarrow{\sim} A^e \otimes A^{\otimes n}$ via 
+	\[
+		a_0 \otimes \dots \otimes a_{n+1} \mapsto (a_0 \otimes a_{n+1}) \otimes a_1 \otimes \dots \otimes a_n.
+	\]
+	In particular, if $A$ is free as a $k$-module, than $A^{\otimes n+2}$ is free as an $A$-module.
+\end{prop}
+
+\begin{thm}
+	If $A$ is a free $k$-module, then $\HHrm_*(A/k, M)$ is equivalent to the homology of the complex
+	\[
+		\begin{tikzcd}
+			\dots \rar["d_3"] & M \otimes_k A \otimes_k A \rar["d_2"] \rar & M \otimes_k A \rar["d_1"] & M \rar & 0
+		\end{tikzcd}
+	\]
+	where
+	\[
+		d_n(m \otimes \dots a_n) = m a_1 \otimes a_2 \otimes \dots \otimes a_n + \sum_{i=1}^{n-1} (-1)^i m \otimes a_1 \otimes \dots \otimes a_i a_{i+1} \otimes \dots \otimes a_n + (-1)^n a_n m \otimes a_1 \otimes \dots \otimes a_n.
+	\]
+\end{thm}
+
+\begin{proof}
+	If $A$ is free, use the standard resolution and $M \otimes_{A^e} (A^{\otimes n+2}) \cong M \otimes_k A^{\otimes n}$.
+\end{proof}
+
+\subsection{HKR and computations}
+
+\begin{thm}
+	If 
+	\[
+		\SES{M_1}{M_2}{M_3}
+	\]
+	is a short exact sequence of $A^e$-modules, we get a LES
+	\[
+		\begin{tikzcd}
+			\dots \rar & \HHrm_1(A/k, M_3) \rar & \HHrm_0(A/k, M_1) \rar & \HHrm_0(A/k, M_2) \rar & \HHrm_0(A/k, M_3) \rar & 0.
+		\end{tikzcd}
+	\]
+	where $\HHrm_0(A/k, M) = M / [A, M] = M \otimes_{A^e} A$.
+	Furthermore, if $M$ is a free $A^e$-module, then $\HHrm_i(A/k, M) = 0$ for all $i > 0$.
+\end{thm}
+
+\begin{ex}
+	Consider the SES
+	\[
+		\SES{I}{A^e}{A}
+	\]
+	where $I = \ker(M)$.
+	Because $A^e$ is a free module over itself, we get an LES containing the terms
+	\[
+		\begin{tikzcd}
+			0 \rar & \HHrm_1(A / k, A / k) \rar & I \otimes_{A^e} A \rar["\phi"] & A.
+		\end{tikzcd}
+	\]
+	As 
+	\[
+		\phi\big((a \otimes b) \otimes \alpha\big) = a \alpha b = a b \alpha = 0
+	\]
+	(because $a \otimes b \in I$), we see
+	\[
+		\HHrm_1(A / k, A / k) \cong I \otimes_{A^e} A \cong I \otimes_{A^e} A^e / I \cong I / I^2 \cong \Omega^1_{A/k}.
+	\]
+	Thus $\HHrm_1(A / k, A / k) \cong \Omega^1_{A/k}$, regardless of $A$.
+\end{ex}
+
+\begin{thm}[Hochschild-Kostant-Rosenberg]
+	There exists a cup product on $\HHrm_*(A / k, A / k)$ and a map $\wedge^* \Omega^1_{A/k} \to \HHrm_*(A / k, A / k)$.
+	If $k$ is a field and $A / k$ is smooth, then this map is an isomorphism.
+\end{thm}
+
 \end{document}
