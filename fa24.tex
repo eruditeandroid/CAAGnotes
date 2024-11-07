@@ -1101,4 +1101,127 @@ This can be accomplished as follows.
 	If $k$ is a field and $A / k$ is smooth, then this map is an isomorphism.
 \end{thm}
 
+\section{10/29 (Catherine Cannizzo) -- Homological Mirror Symmetry for Theta Divisors}
+
+I didn't take notes for this talk because the speaker already had well-prepared slides.
+
+\section{11/5 (Martin Olsson) -- Ample Vector Bundles and Projective Geometry of Stacks}
+
+This is based on joint work with Dan Bragg and Rachel Webb.
+For simplicity, we work over a field of characteristic zero.
+
+\subsection{Warmup}
+
+Let $g \geq 2$, and consider the Deligne-Mumford moduli space of curves $\ol{\Mc}_g$.
+This has a coarse moduli space $\ol{M}_g$.
+
+Recall that $\ol{M}_g$ is a projective scheme.
+More precisely, for all $k \geq 1$, we get a line bundle $\Lambda_k$ on $\ol{\Mc}_g$, with sections over $R$-points (corresponding to curves $C$ over $R$) given by $\det H^0(C, \omega_{C/R}^{\otimes k})$.
+For $k \gg 0$, this descends to an ample line bundle $\Lc_k$ on $\ol{M}_g$.
+Thus we may write 
+\[
+	\ol{M}_g = \Proj \oplus_{m \geq 0} H^0(\ol{\Mc}_g, \Lambda_k^{\otimes m}) = \Proj \oplus_{m \geq 0} H^0(\ol{M}_g, \Lc_k^{\otimes m}).
+\]
+
+\begin{qn}
+	How can we produce an analogous description of $\ol{\Mc}_g$?
+\end{qn}
+
+\subsection{An example: $\ol{\Mc}_{1,1}$}
+
+Consider $\ol{\Mc}_{1,1}$; this is a ``stacky curve.''\footnote{For more on stacky curves, see the AMS Memoirs book by Voight and Zureick-Brown.}
+We define a line bundle $\Lambda$ with sections over an $R$-point $(E, e)$ given by $H^0(E, \omega_{E/R}) = e^* \omega_{E/R}$.
+The coarse moduli space here is $\PP^1$ (with the coarse moduli map given by the $j$-invariant).
+Mumford showed that $\Lambda^{\otimes 12}$ descends to $\Oc_{\PP^1}(1)$.
+	
+We'd like to compute the graded ring $\Gamma_*(\ol{\Mc}_{1,1}, \Lambda)$.
+Note that $\ol{\Mc}_{1,1}$ has two special points: $i_0: B\mu_6 \to \ol{\Mc}_{1,1}$ and $i_{1728}: B\mu_4 \to \ol{\Mc_{1,1}}$.
+Viewing these as divisors $\Dc_0$ and $\Dc_{1728}$, we can show $\Lambda = \Oc_{\ol{\Mc}_{1,1}}(\Dc_{1728} - \Dc_0)$.
+From this, we obtain
+\[
+	H^0(\ol{\Mc}_{1,1}, \Lambda^{\otimes m}) = \begin{cases}
+		0 & m \textrm{ odd} \\
+		H^0\left(\PP^1, \Oc_{\PP^1}\left( \left\lfloor \frac{m}{4} \right\rfloor - \left\lceil \frac{m}{6} \right\rceil \right)\right) & m \textrm{ even.}
+	\end{cases}
+\]
+This can be used to show that $\Gamma_*(\ol{\Mc}_{1,1}, \Lambda) = k[x, y]$, where $\deg x = 4$ and $\deg y = 6$.
+
+Observe that $\ol{\Mc}_{1,1} \simeq [(\Spec k[x, y] \setminus 0) / \GG_m]$.
+This looks like a reasonable ``projective embedding of stacks.''
+
+\subsection{Desiderata}
+
+In general, we should ask:
+
+\begin{qn}
+	What plays the role of projective spaces for stacks?
+\end{qn}
+
+\begin{qn}
+	What plays the role of ample line bundles for stacks?
+\end{qn}
+
+The \emph{weighted projective spaces} $\Pc(a_0, \dots, a_n) = [(\AA^{n+1} \setminus 0) /_{\ul{a}} \GG_m]$ should be examples of ``stacky projective spaces.''
+However, they shouldn't give all of the examples, as that would only allow cyclic stabilizers.
+Similarly, restricting to line bundles only gives embeddings into stacks with cyclic stabilizers.
+Abramovich and Hassett study a version of moduli theory for stacks with cyclic stabilizers, but we really want to allow nonabelian examples.
+
+\begin{ex}
+	Let's think about the case where $\Xfr = BG$ for a finite group $G$.
+	Line bundles on $\Xfr$ correspond to multiplicative characters of $G$.
+	Vector bundles on $G$ correspondto representations of $G$ -- knowing these tells us a lot more about $G$!
+\end{ex}
+
+\subsection{Generalizing projective spaces}
+
+Let $V$ be a representation of $\GL_r$, and let $\AA_V = \Spec \Sym V$.
+Define a subvariety $\AA_V^{s,\det} \subset \AA_V$ by the condition $x \in \AA^{s,\det}_V$ if and only if there exists $f \in \Sym V$ such that 
+\begin{enumerate}
+	\item $g \cdot f = (\det g)^m f$ for all $g \in \GL_r$,
+	\item $f(x) \neq 0$, and
+	\item $x$ has closed orbit in $D(f)$.
+\end{enumerate}
+This should be thought of as similar to a GIT ``stability condition.''
+
+We define $\Qc\Pc(V) = [\AA_v^{s,\det} / \GL_r]$.
+By GIT, it follows that $\Qc\Pc(V)$ is a DM stack with finite diagonal.
+The coarse moduli space of $\Qc\Pc(V)$ is $\Proj \oplus_{m \geq 0} A_m$, where $A_m$ consists of the $f$ above.
+
+\subsection{Generalizing ample line bundles}
+
+The generalization of ample line bundles used here is inspired by Robin Hartshorne's ``ample vector bundles.''
+
+Let $\Xfr$ be a finite type DM stack with affine diagonal over an algebraically closed field\footnote{We're only assuming this to clean up some of the statements we'll make.} $k$, and let $\pi: \Xfr \to X$ be the coarse moduli space.
+For a point $x: \Spec k \to \Xfr$, we write $G_x$ for the corresponding stabilizer group.
+In particular, if $\Fc \in \Coh(\Xfr)$, then the fiber $\Fc(x) = x^* \Fc$ is naturally an object of $\Rep(G_x)$.
+
+\begin{dfn}
+	Let $\Ec$ be a vector bundle on $\Xfr$.
+	We say that $\Ec$ is:
+	\begin{enumerate}
+		\item \emph{faithful} if, for all $x \in \Xfr(k)$, the representation $\Ec(x)$ of $G_x$ is faithful.
+		\item \emph{H-ample} if $\Ec$ is faithful and, for all $\Fc \in \Coh(\Xfr)$, there exists $n_0$ such that $\pi_*(\Fc \otimes \Sym^n \Ec)$ is generated by global sections for all $n \geq n_0$.
+		\item \emph{$\det$-ample} if $\Ec$ is faithful and there exists $N > 0$ such that $\det(\Ec)^{\otimes N}$ descends to an ample line bundle on $X$.
+	\end{enumerate}
+\end{dfn}
+
+\begin{thm}
+	The following are equivalent:
+	\begin{enumerate}
+		\item $X$ is quasiprojective and $\Xfr = [U / \GL_r]$ for some scheme $U$ with action of $\GL_r$ (for some $r \geq 1$)
+		\item $\Xfr$ admits a vector bundle that is both H-ample and $\det$-ample.
+		\item $\Xfr$ admits a $\det$-ample vector bundle.
+		\item $\Xfr$ admits an immersion into $\Qc\Pc(V)$ for some $V$.
+	\end{enumerate}
+\end{thm}
+
+Given a $\det$-ample vector bundle, how do we obtain a map $\Xfr \to \Qc\Pc(V)$?
+Let's forget about stability conditions for the moment and just consider maps from $\Xfr$ to $[\AA_V / \GL_r]$.
+These correspond to $\GL_r$-torsors $P \to \Xfr$ together with $\GL_r$-equivariant maps $P \to \AA_V$.
+If $P$ corresponds to the rank $r$ vector bundle $\Ec$, then $P$ embeds as an open substack of $\Spec \Sym \Ec^{\oplus r}$.
+Requiring that $\Ec$ is faithful implies that $P$ is a \emph{scheme} open in $\Spec_X(\pi_* \Sym \Ec^{\oplus r})$.
+This can be used to understand $H^0(P, \Oc_P)$, and the map $P \to \AA_V$ can be constructed as a map $V \to H^0(P, \Oc_P)$.
+
+
+
 \end{document}
