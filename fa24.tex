@@ -1568,4 +1568,234 @@ In the complex setting, we need a generalization of reflections.
 	The same coefficient in the Molien series is $(\sum_i (d_i - 1)) / (2 d_1 \dots d_n)$, and one can use this to see that the only contributions to this term come from pseudoreflections.
 \end{proof}
 
+\section{11/26a (Serkan Ho\c{s}ten) -- ML Degree Stratification of $\PP^{m-1} \times \PP^{n-1}$}
+
+This is based on joint work (arXiv:2312.10010) with O.\ Clarke, N.\ Kushnerchuk, and J.\ Oldekop.
+
+\subsection{Segre embeddings and independence loci}
+
+Recall that the product $\PP^{m-1} \times \PP^{n-1}$ admits a Segre embedding into $\PP^{mn-1}$, given by
+\[
+	[\alpha_1 : \dots : \alpha_m] \times [\beta_1 : \dots : \beta_n] \mapsto [\alpha_i \beta_j]_{i \in \{1, \dots, m\}, j \in \{1, \dots, n\}}.
+\]
+We think of the image $\Seg(m,n)$ as being described by $m \times n$ matrices of rank $1$.
+
+There is a corresponding map of standard simplices $\Delta_{m-1} \times \Delta_{n-1} \to \Delta_{mn-1}$ given by essentially the same formula
+\[
+	(\alpha_1, \dots, \alpha_m) \times (\beta_1, \dots, \beta_n) \mapsto (\alpha_i \beta_j)_{i \in \{1, \dots, m\}, j \in \{1, \dots, n\}}.
+\]
+Thinking of points of $\Delta_{m-1}$ as probability distributions on $\{1, \dots, m\}$ (and likewise for $\Delta_{n-1}$), this takes $P(X = i)$ and $P(Y = j)$ and returns $P(X = i, Y = j)$.
+The image is called the \emph{independence locus} $\Indop(m,n)$.
+
+\subsection{Maximum likelihood}
+
+In statistics, given data $u = (u_{ij}) \in \NN^{m \times n}$, where $u_{ij}$ is the number of observed samples with $X = i$ and $Y = j$.
+We seek to maximize
+\[
+	\ell_u(p) = \sum_{j=1}^n \sum_{i=1}^m u_{ij} \log(p_{ij})
+\]
+subject to the constraint $(p_{ij}) \in \Indop(m,n)$.
+The maximizer $(p_{ij}^\times)$ is known as the \emph{maximum likelihood estimator} for $\Indop(m,n)$ given $u$.
+
+A related algebraic problem is to compute the complex critical points of $\ell_u(p)$ on 
+\[
+	\Seg(m,n) \setminus \{ (\prod_{ij} p_{ij}) (\sum_{ij} p_{ij}) = 0 \}.
+\]
+The number of complex critical points for generic $u$ is the ML degree $\MLdeg(\Seg(m, n)$.
+Note that the complex critical points are determined by the \emph{derivatives} of $\ell_u(p)$, which are algebraic.
+
+More generally, given $X \subset \PP^{r-1}$, we view $\Cone(X) \cap \Delta_{r-1}$ as a probability model.
+The ML degree $\MLdeg(X)$ counts the number of complex critical points of $\ell_u(p)$ on $X \setminus \{ (\prod_i p_i) (\sum_i p_i) = 0 \}$.
+This can help estimate the complexity of a maximum likelihood estimation problem.
+Furthermore, if we know the ML degree, we can use methods of numerical algebraic geometry to find critical points.
+
+\subsection{The problem}
+
+Let $W = (w_{ij}) \in (\CC^times)^{mn}$, and define a modified Segre embedding
+\[
+	[\alpha_1 : \dots : \alpha_m] \times [\beta_1 : \dots : \beta_n] \mapsto [w_{ij} \alpha_i \beta_j]_{i \in \{1, \dots, m\}, j \in \{1, \dots, n\}}.
+\]
+The image $\Seg_W(m,n)$ is abstractly isomorphic to $\Seg(m,n)$ but may have a different ML degree.
+
+\begin{qn}
+	What is $\MLdeg(\Seg_W(m,n))$ as $w$ varies?
+\end{qn}
+
+Analogous toy examples show that the results can be interesting:
+
+\begin{ex}
+	For the twisted cubic
+	\[
+		[s : t] \mapsto [s^3 : s^2 t : st^2 : t^3]
+	\]
+	we can compute that the ML degree is $3$.
+	However, if we vary the coefficients to
+	\[
+		[s : t] \mapsto [s^3 : 3s^2 t : 3st^2 : t^3]
+	\]
+	we get ML degree $1$.
+\end{ex}
+
+\begin{dfn}
+	Let $\hat{W} = [I_m | W] \in \CC^{m (m + n)}$, and let $M_W$ be the matroid associated to $\hat{W}$.
+\end{dfn}
+
+\begin{ex}
+	For $m = n = 3$, we look at the matroid consisting of bases which consist of columns of
+	\[
+		\hat{W} = \begin{bmatrix}
+			1 & 0 & 0 & w_{11} & w_{12} & w_{13} \\
+			0 & 1 & 0 & w_{21} & w_{22} & w_{23} \\
+			0 & 0 & 1 & w_{31} & w_{32} & w_{33} \\
+		\end{bmatrix}
+	\]
+	Up to isomorphism, there are 38 matroids of rank 3 on a $6$-element set.
+	Only 8 of these arise as $M_W$.
+\end{ex}
+
+\begin{thm}
+	The integer $\MLdeg(\Seg_W(m,n))$ is a matroid invariant: if $M_V \cong M_W$, then $\MLdeg(\Seg_V(m,n)) = \MLdeg(\Seg_W(m,n))$.
+\end{thm}
+
+One can also ask what values of $\MLdeg$ are achievable.
+It is possible to show that $\binom{n+m-2}{m-1} = \deg(\Seg(m,n))$
+
+\begin{thm}
+	Let $m \in \{2, 3, 4\}$.
+	Then, for all $1 \leq k \leq \binom{n+m-2}{m-1} = \deg(\Seg(m,n))$, there exists $W \in (\RR^{\times})^{mn}$ such that $\MLdeg(\Seg_W(m,n)) = k$.
+\end{thm}
+
+This is expected to be true for more general $m$, but the speaker does not have a proof at the moment.
+
+\subsection{Ideas of the proofs}
+
+Let $f_W = \sum_{j=1}^n \sum_{i=1}^m w_{ij} x_i y_j$, and let $\nabla_A$ be the closure of the set of $W \in (\CC^\times)^{mn}$ such that there exists $(x,y) \in (\CC^\times)^m \times (\CC^\times)^n$ with $f_W(x,y) = 0$ and 
+\[
+	\frac{\partial f_W}{\partial x_i} = \frac{\partial f_W}{\partial y_j} = 0
+\]
+for all $i, j$.
+If $\nabla_A$ has codimension one, the irreducible polynomial $\Delta(f_W)$ is the \emph{$A$-discriminant} of Gelfand-Kapranov-Zelevinsky.
+
+The \emph{principal $A$-determinant} is the product $E(W) = \prod_{\Gamma} \Delta_{\Gamma \cap (\Delta_{m-1} \times \Delta_{n-1})}$, where the product runs over faces of $\Delta_{m-1} \times \Delta_{n-1}$.
+This can also be computed as a product over all minors of all sizes of $W$.
+The proofs use a recent theorem relating this principal $A$-determinant to the problem at hand (but I missed the statement).
+
+Another important idea is the following:
+
+\begin{thm}[Huh]
+	If a $d$-dimensional variety $X \setminus H$ is smooth (for $H = \{ (\prod p_{ij}) (\sum p_{ij}) = 0\}$ is smooth, then $\MLdeg(X) = (-1)^d \chi(X \setminus H)$.
+\end{thm}
+
+Using this, we can reduce the problems at hand to clever Euler characteristic computations.
+This turns the ML degrees appearing here into matroid invariants (``$\beta$-invariants'').
+
+\section{11/26b (Dustin Ross) -- Ehrhart Fans}
+
+This is based on ongoing work with Melody Chan, Emily Clader, and Carly Kilvans.
+
+\subsection{Motivation}
+
+Let $X$ be a smooth complex algebraic variety.
+The $K$-ring $K(X)$ is the free abelian group generated by vector bundles $\Ec$ on $X$, modulo relations $[\Fc] = [\Ec] + [\Gc]$ whenever we have a short exact sequence
+\[
+	\SES{\Ec}{\Fc}{\Gc},
+\]
+together with multiplication via tensor product.
+
+If $X$ is complete, there exists an Euler characteristic $\chi: K(X) \to \ZZ$ given by $[\Ec] \mapsto \sum_i (-1)^i h^i(X, \Ec)$.
+When $X$ is not complete, this usually doesn't exist (dimensions are typically infinite-dimensional).
+
+Let's consider some particularly nice cases.
+\begin{enumerate}
+	\item Suppose $X = X_\Sigma$ is a projective toric variety.
+		Then $K(X)$ is spanned by ample line bundles $\Lc$, each corresponding to a lattice polytope $P_\Lc$.
+		The Euler characteristic $\chi([\Lc])$ is equal to the number of lattice points of $P_\Lc$, relating algebraic geometry and Ehrhart theory.
+	\item Suppose $X$ is a wonderful compactification.
+		Recent work of Larson-Li-Payne-Proudfoot computes the $K$-rings and Euler characteristics in terms of matroids associated to the hyperplane arrangement determining $X$.
+		This can be used to construct $K$-rings and Euler characteristics of abstract matroids.
+		One notes that $K(M) = K(X_{\Sigma_M})$, where $M$ is the (typically incomplete) \emph{Bergman fan} of the matroid.
+\end{enumerate}
+
+We'd like to unify these and explain why there's an ``Euler characteristic'' on $X_{\Sigma_M}$ even when $\Sigma_M$ is not complete.
+Ultimately, we will define ``Ehrhart fans,'' a class of unimodular fans containing both smooth projective fans and matroid fans.
+One can define a suitable ``Euler characteristic'' for the $K$-rings of the corresponding toric varieties.
+
+\subsection{Definition of Ehrhart fans}
+
+Let $\Sigma \subset \RR^n$ be a pure unimodular fan.
+Here ``pure'' means that the maximal cones in $\Sigma$ all dimension equal to $\dim(\Sigma)$ (which is the dimension of the support of $\Sigma$, not necessarily $n$).
+``Unimodular'' means that the minimal generators of each cone can be extended to a basis of $\ZZ^n$, or equivalently that the corresponding toric variety is smooth.
+
+\begin{dfn}
+	A function $f: |\Sigma| \to \RR$ is \emph{integral piecewise-linear} if, for all $\sigma \in \Sigma$, there exists a linear function $\ell_\sigma: \RR^n \to \RR$, taking integer values on ray generators of $\sigma$, such that $f|_\sigma = \ell_\sigma|_\sigma$.
+	These form a group $\PL(\Sigma) \cong \ZZ^{\Sigma(1)}$.
+	We let $\ul{\PL}(\Sigma)$ be the quotient of $\PL(\Sigma)$ by the linear functions.
+\end{dfn}
+
+There are two useful ways to think of PL functions:
+\begin{enumerate}
+	\item There is an equivalence $\ul{\PL}(\Sigma) \cong \Pic(X_\Sigma) \subset K(X_\Sigma)$.
+	\item If $\Sigma$ is complete and $f$ is convex, then $f$ determines a polytope
+		\[
+			P_f = \{ v \in \RR^n \,|\, u_\rho \cdot v \leq f(u_\rho) \textrm{ for all } \rho \in \Sigma(1) \}.
+		\]
+		Counting the lattice points of $P_f$ gives the Euler characteristic of the corresponding line bundle.
+		Using elements of the quotient $\ul{\PL}(\Sigma)$ instead of $\PL(\Sigma)$ just corresponds to fixing the polytope modulo translation -- in particular, the number of lattice points is left unchanged.
+\end{enumerate}
+
+We'd like to adapt the latter picture to work (and give the correct answer!) for incomplete fans.
+One can think of lattice point counting as a recursive process: by truncating a polytope along one face, we get
+\[
+	\chi_\Sigma([f]) = \chi_\Sigma([f - \delta_\rho]) + \chi_{\Sigma^\rho}([f]^\rho)
+\]
+Here $\Sigma^\rho$ is the \emph{star fan}.
+We'll use this as a definition.
+
+\begin{dfn}
+	A fan $\Sigma$ is \emph{Ehrhart} if all star fans $\Sigma^\rho$ are Ehrhart and there exists a well-defined $\chi_\Sigma: \ul{\PL}(\Sigma) \to \ZZ$ such that:
+	\begin{enumerate}
+		\item $\chi_\Sigma(0) = 1$
+		\item $\chi_\Sigma([f]) = \chi_\Sigma([f - \delta_\rho]) + \chi_{\Sigma^\rho}([f]^\rho)$ for all $f \in \PL(\Sigma)$ and all $\rho \in \Sigma(1)$.
+	\end{enumerate}
+\end{dfn}
+
+\subsection{Results}
+
+Ehrhart fans are easy to understand in low dimensions.
+
+\begin{ex}
+	If $\dim \Sigma = 0$, then $\ul{\PL(\Sigma)} = 0$ and $\Sigma$ is Ehrhart with $\chi_\Sigma = 1$.
+\end{ex}
+
+\begin{ex}
+	If $\dim \Sigma = 1$ and $\Sigma$ is Ehrhart, then $\chi_\Sigma([f])$ must be $1 + \sum_\rho f(u_\rho)$.
+	In order for $\chi_\Sigma$ to descend to $\ul{\PL}(\Sigma)$, we must have $\sum_\rho u_\rho = 0$.
+\end{ex}
+
+In higher dimensions, we can say that all Ehrhart fans are tropical with uniform weights.
+Much as with tropical geometry, we can say that the Ehrhart condition does not depend on the fan structure:
+
+\begin{thm}[CCKR]
+	If $|\Sigma_1| = |\Sigma_2|$, then $\Sigma_1$ is Ehrhart if and only if $\Sigma_2$ is Ehrhart.
+	Furthermore, if $f$ is PL on both $\Sigma_1$ and $\Sigma_2$, then $\chi_{\Sigma_1}([f]) = \chi_{\Sigma_2}([f])$.
+\end{thm}
+
+\begin{cor}
+	If $\Sigma$ is Ehrhart, there exists a canonical ``Euler characteristic'' $\chi_\Sigma: K(X_\Sigma) \to \ZZ$.
+\end{cor}
+
+\begin{thm}[CCKR/LLKP]
+	Bergman fans of matroids are Ehrhart.
+\end{thm}
+
+\begin{cor}
+	All fans supported on Bergman fans are Ehrhart.
+	In particular, complete fans are Ehrhart.
+\end{cor}
+
+The speaker expects that the Euler characteristics mentioned here can be interpreted in terms of ``tropical ranks,'' but this is still work in progress.
+
+\section{12/3 (Dawei Chen) -- Geometry of Subcanonical Points}
+
+This was a slide talk, so I did not take notes.
 \end{document}
