@@ -10,6 +10,7 @@
 \usepackage{enumitem}
 \usepackage{bbm}
 \usepackage{todonotes}
+\usepackage{mathtools}
 
 \usepackage{hyperref} % this should always be near the end BUT see https://tex.stackexchange.com/questions/1863/
 \usepackage[capitalize]{cleveref}
@@ -17,6 +18,8 @@
 \setcounter{tocdepth}{1}
 
 % General use
+
+\DeclarePairedDelimiterX{\bset}[2]{\{}{\}}{{#1} \,\delimsize\vert\, {#2}}
 
 \newcommand{\SES}[3]{\begin{tikzcd}[ampersand replacement =\&]0 \rar \& {#1} \rar \& {#2} \rar \& {#3} \rar \& 0\end{tikzcd}}
 
@@ -37,6 +40,9 @@
 
 \newcommand{\bra}[1]{\left\langle {#1} \right|}
 \newcommand{\ket}[1]{\left| {#1} \right\rangle}
+
+\DeclareMathOperator{\charop}{char} 
+
 
 % mathrm superscripts / subscripts
 \newcommand{\op}{^{\mathrm{op}}}
@@ -79,12 +85,18 @@
 % Algebraic geometry <3<3<3
 \DeclareMathOperator{\Bl}{B\ell}
 \DeclareMathOperator{\Cl}{C\ell}
+\DeclareMathOperator{\Cox}{Cox}
+\renewcommand{\deg}{\operatorname{deg}}
 \DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\FQuot}{FQuot}
 \DeclareMathOperator{\Gr}{Gr}
 \DeclareMathOperator{\Isom}{Isom}
 \DeclareMathOperator{\MLdeg}{MLdeg}
 \DeclareMathOperator{\mult}{mult}
+\DeclareMathOperator{\Nef}{Nef}
+\DeclareMathOperator{\pdim}{pdim}
 \DeclareMathOperator{\Proj}{Proj}
+\DeclareMathOperator{\Quot}{Quot}
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\Seg}{Seg}
 \DeclareMathOperator{\Spec}{Spec}
@@ -103,7 +115,11 @@
 \newcommand{\et}{\mathrm{\acute{e}t}}
 \newcommand{\Et}{\mathrm{\acute{E}t}}
 \newcommand{\pin}{\mathrm{pin}}
+\newcommand{\proet}{\mathrm{pro\acute{e}t}}
 \newcommand{\sn}{\mathrm{sn}}
+
+\DeclareMathOperator{\irr}{irr} 
+\DeclareMathOperator{\covgon}{covgon} 
 
 \newcommand{\Dbcoh}{\mathsf{D}^{\mathrm{b}}_{\mathrm{coh}}}
 \newcommand{\Dqcoh}{\mathsf{D}_{\mathrm{qcoh}}}
@@ -138,6 +154,11 @@
 
 \newcommand{\exrm}{\mathrm{ex}}
 
+% Combinatorics
+\DeclareMathOperator{\ehr}{ehr} 
+\DeclareMathOperator{\SYT}{SYT} 
+
+
 % Homological algebra
 \DeclareMathOperator{\coker}{coker}
 \DeclareMathOperator{\cone}{cone}
@@ -157,6 +178,9 @@
 \newcommand{\sSet}{\mathsf{sSet}}
 
 % Groups and representation theory
+
+\newcommand{\St}{\mathrm{St}}
+
 \DeclareMathOperator{\Stab}{Stab}
 
 \DeclareMathOperator{\Indop}{Ind} % ``Indop'' to avoid confusion with ``Indsf''
@@ -239,6 +263,17 @@
 \newcommand{\ZZ}{\mathbb{Z}}
 \newcommand{\onebb}{\mathbbm{1}}
 
+% mathbf
+\newcommand{\Bbf}{\mathbf{B}}
+\newcommand{\dbf}{\mathbf{d}}
+\newcommand{\Ebf}{\mathbf{E}}
+\newcommand{\ebf}{\mathbf{e}}
+\newcommand{\fbf}{\mathbf{f}}
+\newcommand{\gbf}{\mathbf{g}}
+\newcommand{\Lbf}{\mathbf{L}}
+\newcommand{\Rbf}{\mathbf{R}}
+\newcommand{\rbf}{\mathbf{r}}
+
 % mathcal
 \newcommand{\Ac}{\mathcal{A}}
 \newcommand{\Bc}{\mathcal{B}}
@@ -252,13 +287,13 @@
 \newcommand{\Jc}{\mathcal{J}}
 \newcommand{\Kc}{\mathcal{K}}
 \newcommand{\Lc}{\mathcal{L}}
-\renewcommand{\Mc}{\mathcal{M}}
+\newcommand{\Mc}{\mathcal{M}}
 \newcommand{\Nc}{\mathcal{N}}
 \newcommand{\Oc}{\mathcal{O}}
 \newcommand{\Pc}{\mathcal{P}}
 \newcommand{\Qc}{\mathcal{Q}}
 \newcommand{\Rc}{\mathcal{R}}
-%\newcommand{\Sc}{\mathcal{S}} don't use unless you remove / rename \Spaces
+\newcommand{\Sc}{\mathcal{S}} 
 \newcommand{\Tc}{\mathcal{T}}
 \newcommand{\Uc}{\mathcal{U}}
 \newcommand{\Vc}{\mathcal{V}}
